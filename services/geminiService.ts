@@ -1,26 +1,40 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
+
+import { GoogleGenAI } from "@google/genai";
 
 export const generateStageImage = async (prompt: string): Promise<string | null> => {
   try {
-    const genAI = new GoogleGenerativeAI("AIzaSyDzVCcDoOrqeEnspgETG2550K2XMJYAyxc");
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-
-    const result = await model.generateContent([prompt]);
-    const response = await result.response;
+    // 가이드라인에 따라 호출 직전에 인스턴스 생성
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
     
-    if (!response.candidates || response.candidates.length === 0) {
-      return null;
-    }
+    const response = await ai.models.generateContent({
+      model: 'gemini-2.5-flash-image', // 가장 빠르고 비용 효율적인 이미지 모델
+      contents: {
+        parts: [
+          {
+            text: `${prompt}. Digital anime masterpiece, high quality, vibrant and soft colors, clean lines, cinematic lighting, 4k resolution, centered composition.`,
+          },
+        ],
+      },
+      config: {
+        imageConfig: {
+          aspectRatio: "1:1"
+        },
+      },
+    });
 
-    const parts = response.candidates[0].content.parts;
-    for (const part of parts) {
-      if (part.inlineData?.data) {
-        return `data:image/png;base64,${part.inlineData.data}`;
+    const candidate = response.candidates?.[0];
+    if (candidate?.content?.parts) {
+      for (const part of candidate.content.parts) {
+        if (part.inlineData?.data) {
+          return `data:image/png;base64,${part.inlineData.data}`;
+        }
       }
     }
     
+    console.warn("Gemini response did not contain image data.");
     return null;
   } catch (error) {
+    console.error("Gemini image generation failed:", error);
     return null;
   }
 };
