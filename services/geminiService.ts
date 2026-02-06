@@ -8,7 +8,7 @@ export const generateStageImage = async (prompt: string): Promise<string | null>
   }
 
   try {
-    const ai = new GoogleGenAI({"AIzaSyDzVCcDoOrqeEnspgETG2550K2XMJYAyxc"});
+    const ai = new GoogleGenAI({ apiKey: "AIzaSyDzVCcDoOrqeEnspgETG2550K2XMJYAyxc" });
     const response = await ai.models.generateContent({
       model: 'gemini-2.5-flash-image',
       contents: {
