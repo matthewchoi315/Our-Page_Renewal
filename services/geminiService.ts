@@ -1,17 +1,19 @@
-import { GoogleGenAI } from "@google/generative-ai";
+import { GoogleGenAI } from "@google/generative-ai"; // Fixed library path
 
 export const generateStageImage = async (prompt: string): Promise<string | null> => {
   try {
+    // 1. Initialize with your API Key
     const genAI = new GoogleGenAI("AIzaSyDzVCcDoOrqeEnspgETG2550K2XMJYAyxc");
+    
+    // 2. Setup Gemini 3.0 Flash model
     const model = genAI.getGenerativeModel({ model: "gemini-3.0-flash" });
 
-    const result = await model.generateContent([
-      `${prompt}. Breathtaking digital masterpiece, high quality, highly detailed digital anime style, cinematic lighting, vibrant soft colors, 4k, clean composition.`
-    ]);
-
+    // 3. Request content using the prompt you configured in AI Studio
+    const result = await model.generateContent([prompt]);
     const response = await result.response;
     const candidate = response.candidates?.[0];
 
+    // 4. Extract image data from the response
     if (candidate?.content?.parts) {
       for (const part of candidate.content.parts) {
         if (part.inlineData?.data) {
@@ -20,10 +22,9 @@ export const generateStageImage = async (prompt: string): Promise<string | null>
       }
     }
     
-    console.warn("No image data found");
     return null;
   } catch (error) {
-    console.error("API Error:", error);
+    console.error("Gemini 3.0 Flash Error");
     return null;
   }
 };
