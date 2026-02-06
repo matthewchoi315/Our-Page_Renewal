@@ -22,3 +22,4 @@ export const generateStageImage = async (prompt: string): Promise<string | null>
     return null;
   }
 };
+ 
