@@ -1,9 +1,9 @@
-import { GoogleGenAI } from "@google/generative-ai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 export const generateStageImage = async (prompt: string): Promise<string | null> => {
   try {
-    const genAI = new GoogleGenAI("AIzaSyDzVCcDoOrqeEnspgETG2550K2XMJYAyxc");
-    const model = genAI.getGenerativeModel({ model: "gemini-3.0-flash" });
+    const genAI = new GoogleGenerativeAI("AIzaSyDzVCcDoOrqeEnspgETG2550K2XMJYAyxc");
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
     const result = await model.generateContent([prompt]);
     const response = await result.response;
