@@ -228,9 +228,9 @@ const App: React.FC = () => {
           </div>
 
           {/* RIGHT: Compact Mission Dashboard (Fixed Sermon overflow) */}
-          <div className="lg:col-span-8 flex flex-col gap-3 min-h-0">
+          <div className="lg:col-span-8 flex flex-col gap-4 min-h-0"> {/* Adjusted gap from 3 to 4 for more space */}
             {/* Header & Global Progress */}
-            <div className="flex flex-col gap-3 flex-shrink-0 px-2 mb-1">
+            <div className="flex flex-col gap-3 flex-shrink-0 px-2"> {/* Removed mb-1 to distribute height better */}
               <div className="flex items-end justify-between">
                 <div className="flex flex-col">
                   <h2 className="text-2xl font-black tracking-tighter text-slate-900 leading-none">Mission Dashboard</h2>
@@ -248,11 +248,11 @@ const App: React.FC = () => {
               </div>
             </div>
 
-            {/* Mission Grids - Slightly reduced padding and gaps to prevent Sermon cutoff */}
-            <div className="flex-1 flex flex-col gap-2 min-h-0 overflow-hidden">
+            {/* Mission Grids - Slightly adjusted padding/gap to prevent Sermon cutoff */}
+            <div className="flex-1 flex flex-col gap-3 min-h-0 overflow-hidden"> {/* Adjusted gap from 2 to 3 */}
               {statsByCategory.map((stat) => (
-                <div key={stat.category} className="flex-1 bg-white rounded-2xl px-5 py-2.5 border border-slate-50 shadow-sm flex flex-col justify-center transition-all hover:shadow-md">
-                  <div className="flex items-center justify-between mb-1.5">
+                <div key={stat.category} className="flex-1 bg-white rounded-2xl px-5 py-3 border border-slate-50 shadow-sm flex flex-col justify-center transition-all hover:shadow-md"> {/* Adjusted py from 2.5 to 3 */}
+                  <div className="flex items-center justify-between mb-2"> {/* Adjusted mb from 1.5 to 2 */}
                     <div className="flex items-center gap-2.5">
                       <div className="w-7 h-7 bg-indigo-50/50 rounded-xl flex items-center justify-center shadow-inner">
                         {getCategoryIcon(stat.category as MissionCategory)}
@@ -283,7 +283,7 @@ const App: React.FC = () => {
             </div>
 
             {/* Utilities */}
-            <div className="flex items-center justify-between px-3 py-1 flex-shrink-0">
+            <div className="flex items-center justify-between px-3 py-1 flex-shrink-0 mt-1"> {/* Adjusted mt from 0 to 1 */}
                <div className="text-[10px] font-black text-slate-300 uppercase tracking-widest italic flex items-center gap-2">
                  <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
                  Local Cloud Save Active
